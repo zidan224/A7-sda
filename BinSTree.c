@@ -1,4 +1,6 @@
 #include <BinSTree.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 address Alokasi(infotype X){
 	address P = (address) malloc(sizeof(Node));
