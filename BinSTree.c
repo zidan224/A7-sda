@@ -1,4 +1,4 @@
-#include <BinSTree.h>
+#include "BinSTree.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,7 +6,7 @@ address Alokasi(infotype X){
 	address P = (address) malloc(sizeof(Node));
 	if (P==Nil){
 		printf("alokasi gagal");
-		return;
+		return 0;
 	}
 	return P;
 }
@@ -168,7 +168,20 @@ boolean BSearch (BinTree P, infotype X){
 
 address BinSearch (BinTree P, infotype X);
 
-void InsSearch (BinTree *P, infotype X);
+void InsSearch (BinTree *P, infotype X){
+    if (*P == Nil) {
+        *P = Alokasi(X);
+    } else {
+        if (X < Info(*P)) {
+            InsSearch(&Left(*P), X);
+        } else if (X > Info(*P)) {
+            InsSearch(&Right(*P), X);
+        }
+    }
+}
 
-
+int main (){
+    int a;
+    printf("halo \n");
+}
 
