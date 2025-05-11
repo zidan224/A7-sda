@@ -11,7 +11,7 @@ address Alokasi(infotype X){
 	
 
 BinTree Tree (infotype Akar, BinTree L, BinTree R){
-	address P = Alokasi(akar);
+	address P = Alokasi(Akar);
 	if (P!=Nil){
 		P->	left = L;
 		P->right = R;
@@ -23,9 +23,17 @@ void MakeTree (infotype Akar, BinTree L, BinTree R, BinTree *P){
 	*P = Tree(Akar, L, R);  
 }
 
-boolean IsUnerLeft (BinTree P);
+boolean IsUnerLeft (BinTree P){
+    return (P != Nil) && (Left(P) != Nil) && (Right(P) == Nil);
+}
 
-boolean IsEmpty (BinTree P);
+boolean IsUnerRight (BinTree P){
+    return (P != Nil) && (Left(P) == Nil) && (Right(P) != Nil);
+}
+
+boolean IsEmpty (BinTree P){
+    return P == Nil;
+}
 
 void PreOrder(BinTree P) {
     if (P != Nil) {
@@ -60,7 +68,11 @@ void PrintTree (BinTree P, int h){
     }
 }
 
-boolean Search (BinTree P, infotype X);
+boolean Search (BinTree P, infotype X){
+    if (P == Nil) return false;
+    if (Info(P) == X) return true;
+    return Search(Left(P), X) || Search(Right(P), X);
+}
 
 int nbElmt (BinTree P){
 	if (P == Nil) return 0;
@@ -73,9 +85,17 @@ int nbDaun (BinTree P){
     return nbDaun(Left(P)) + nbDaun(Right(P));
 }
 
-boolean IsSkewLeft (BinTree P);
+boolean IsSkewLeft (BinTree P){
+    if (P == Nil) return true;
+    if (Right(P) != Nil) return false;
+    return IsSkewLeft(Left(P));
+}
 
-boolean IsSkewRight (BinTree P);
+boolean IsSkewRight (BinTree P){
+    if (P == Nil) return true;
+    if (Left(P) != Nil) return false;
+    return IsSkewRight(Right(P));
+}
 
 int Level (BinTree P, infotype X){
 	if (P == Nil) return 0;
@@ -137,11 +157,16 @@ ListOfNode MakeListLevel (BinTree P, int N);
 
 BinTree BuildBalanceTree (int N);
 
-boolean BSearch (BinTree P, infotype X);\
+boolean BSearch (BinTree P, infotype X){
+    if (P == Nil) return false;
+    if (Info(P) == X) return true;
+    else if (X < Info(P)) return BSearch(Left(P), X);
+    else return BSearch(Right(P), X);
+}
 
 address BinSearch (BinTree P, infotype X);
 
 void InsSearch (BinTree *P, infotype X);
 
 
-#endif
+
