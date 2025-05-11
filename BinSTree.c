@@ -180,8 +180,5 @@ void InsSearch (BinTree *P, infotype X){
     }
 }
 
-int main (){
-    int a;
-    printf("halo \n");
-}
+
 
