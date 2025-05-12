@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "BinSTree.h"
 
+void clearInputBuffer() {
+    while (getchar() != '\n');
+}
+
 int main() {
     BinTree root = NULL;
     int choice, value, target;
@@ -21,79 +25,113 @@ int main() {
         printf("10. Print Tree\n");
         printf("11. Exit\n");
         printf("Masukkan pilihan: ");
-        scanf("%d", &choice);
+        
+        while (scanf("%d", &choice) != 1) {
+            printf("Input tidak valid. Masukkan angka: ");
+            clearInputBuffer();
+        }
 
         switch (choice) {
             case 1:
-    			printf("Masukkan nilai yang ingin di-insert: ");
-    			scanf("%d", &value);
-   				if (Search(root, value)) {
-   				    printf("Node %d sudah ada, tidak bisa insert duplikat.\n", value);
-    			} else {
-        		InsSearch(&root, value);
-    			}
-    			break;
+                printf("Masukkan nilai yang ingin di-insert: ");
+                while (scanf("%d", &value) != 1) {
+                    printf("Input tidak valid. Masukkan angka: ");
+                    clearInputBuffer();
+                }
+                if (Search(root, value)) {
+                    printf("Node %d sudah ada, tidak bisa insert duplikat.\n", value);
+                } else {
+                    InsSearch(&root, value);
+                }
+                break;
+
             case 2:
                 printf("Masukkan nilai daun yang ingin dihapus: ");
-                scanf("%d", &value);
+                while (scanf("%d", &value) != 1) {
+                    printf("Input tidak valid. Masukkan angka: ");
+                    clearInputBuffer();
+                }
                 DelDaun(&root, value);
                 break;
+
             case 3:
                 printf("PreOrder: ");
                 PreOrder(root);
                 printf("\n");
                 break;
+
             case 4:
                 printf("InOrder: ");
                 InOrder(root);
                 printf("\n");
                 break;
+
             case 5:
                 printf("PostOrder: ");
                 PostOrder(root);
                 printf("\n");
                 break;
+
             case 6:
                 printf("Masukkan nilai yang dicari: ");
-                scanf("%d", &value);
+                while (scanf("%d", &value) != 1) {
+                    printf("Input tidak valid. Masukkan angka: ");
+                    clearInputBuffer();
+                }
                 if (Search(root, value)) {
                     printf("%d ditemukan dalam pohon.\n", value);
                 } else {
                     printf("%d tidak ditemukan dalam pohon.\n", value);
                 }
                 break;
+
             case 7:
                 printf("Masukkan nilai yang dicari dalam BST: ");
-                scanf("%d", &value);
+                while (scanf("%d", &value) != 1) {
+                    printf("Input tidak valid. Masukkan angka: ");
+                    clearInputBuffer();
+                }
                 if (BSearch(root, value)) {
                     printf("%d ditemukan dalam BST.\n", value);
                 } else {
                     printf("%d tidak ditemukan dalam BST.\n", value);
                 }
                 break;
+
             case 8:
                 printf("Masukkan nilai node: ");
-                scanf("%d", &value);
+                while (scanf("%d", &value) != 1) {
+                    printf("Input tidak valid. Masukkan angka: ");
+                    clearInputBuffer();
+                }
                 printf("Kedalaman (level) node %d adalah: %d\n", value, Level(root, value));
                 break;
+
             case 9:
                 printf("Masukkan dua nilai node: ");
-                scanf("%d %d", &value, &target);
+                while (scanf("%d %d", &value, &target) != 2) {
+                    printf("Input tidak valid. Masukkan dua angka: ");
+                    clearInputBuffer();
+                }
                 if (Level(root, value) == Level(root, target))
                     printf("Kedua node berada di level yang sama.\n");
                 else
                     printf("Kedua node berada di level yang berbeda.\n");
                 break;
+
             case 10:
                 printf("Tampilan Tree:\n");
                 PrintTree(root, 0);
                 break;
+
             case 11:
                 printf("Keluar dari program.\n");
                 break;
+
             default:
                 printf("Pilihan tidak valid.\n");
         }
+
     } while (choice != 11);
 
     return 0;
