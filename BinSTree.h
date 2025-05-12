@@ -175,4 +175,9 @@ void InsSearch (BinTree *P, infotype X);
 /* FS : P dikembalikan ke sistem */
 /* Melakukan dealokasi / pengembalian address P ke system */
 
+char *findMorse(BinTree root, char target, char *code, int index);
+void konversiMorse(BinTree morseTree, char *kata);
+char findChar(BinTree root, char *code);
+void konversiKata(BinTree morseTree, char *kodeMorse);
+
 #endif
