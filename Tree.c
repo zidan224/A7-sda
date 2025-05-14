@@ -24,7 +24,8 @@ char* findMorse(BinTree root, char target, char* code, int index) {
 }
 
 void konversiMorse(BinTree morseTree, char* kata) {
-    for (int i = 0; kata[i]; i++) {
+	int i;
+    for (i = 0; kata[i]; i++) {
         char huruf = toupper(kata[i]);
         if (huruf >= 'A' && huruf <= 'Z') {
             char morseCode[7];
@@ -56,4 +57,46 @@ void konversiKata(BinTree morseTree, char* kodeMorse) {
         token = strtok(NULL, " ");
     }
     printf("\n");
+}
+
+BinTree createMorseTree() {
+    BinTree T = Alokasi('*'); // root kosong
+
+    // Level 1
+    Left(T) = Alokasi('E');
+    Right(T) = Alokasi('T');
+
+    // Level 2
+    Left(Left(T)) = Alokasi('I');
+    Right(Left(T)) = Alokasi('A');
+    Left(Right(T)) = Alokasi('N');
+    Right(Right(T)) = Alokasi('M');
+
+    // Level 3
+    Left(Left(Left(T))) = Alokasi('S');
+    Right(Left(Left(T))) = Alokasi('U');
+    Left(Right(Left(T))) = Alokasi('R');
+    Right(Right(Left(T))) = Alokasi('W');
+    Left(Left(Right(T))) = Alokasi('D');
+    Right(Left(Right(T))) = Alokasi('K');
+    Left(Right(Right(T))) = Alokasi('G');
+    Right(Right(Right(T))) = Alokasi('O');
+
+    // Level 4
+    Left(Left(Left(Left(T)))) = Alokasi('H');
+    Right(Left(Left(Left(T)))) = Alokasi('V');
+    Left(Right(Left(Left(T)))) = Alokasi('F');
+    Right(Right(Left(Left(T)))) = Alokasi('\0'); // Unused
+    Left(Left(Right(Left(T)))) = Alokasi('L');
+    Right(Left(Right(Left(T)))) = Alokasi('\0'); // Unused
+    Left(Right(Right(Left(T)))) = Alokasi('P');
+    Right(Right(Right(Left(T)))) = Alokasi('J');
+    Left(Left(Left(Right(T)))) = Alokasi('B');
+    Right(Left(Left(Right(T)))) = Alokasi('X');
+    Left(Right(Left(Right(T)))) = Alokasi('C');
+    Right(Right(Left(Right(T)))) = Alokasi('Y');
+    Left(Left(Right(Right(T)))) = Alokasi('Z');
+    Right(Left(Right(Right(T)))) = Alokasi('Q');
+
+    return T;
 }

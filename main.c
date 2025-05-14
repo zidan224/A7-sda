@@ -8,6 +8,7 @@ void clearInputBuffer() {
 
 int main() {
     BinTree root = NULL;
+    BinTree morseTree = createMorseTree();  // ← Inisialisasi Morse Tree
     int choice, value, target;
     boolean isKiri;
 
@@ -23,7 +24,9 @@ int main() {
         printf("8. Mencari Kedalaman Node\n");
         printf("9. Membandingkan 2 Node Tree\n");
         printf("10. Print Tree\n");
-        printf("11. Exit\n");
+        printf("11. Encode ke Morse\n");
+        printf("12. Decode dari Morse\n");
+        printf("13. Exit\n");
         printf("Masukkan pilihan: ");
         
         while (scanf("%d", &choice) != 1) {
@@ -125,6 +128,24 @@ int main() {
                 break;
 
             case 11:
+                {
+                    char teks[100];
+                    printf("Masukkan kata untuk dikonversi ke Morse: ");
+                    scanf(" %[^\n]", teks);
+                    konversiMorse(morseTree, teks);
+                    break;
+                }
+
+            case 12:
+                {
+                    char kode[300];
+                    printf("Masukkan kode Morse untuk dikonversi ke huruf (gunakan spasi antar huruf): ");
+                    scanf(" %[^\n]", kode);
+                    konversiKata(morseTree, kode);
+                    break;
+                }
+
+            case 13:
                 printf("Keluar dari program.\n");
                 break;
 
@@ -132,7 +153,7 @@ int main() {
                 printf("Pilihan tidak valid.\n");
         }
 
-    } while (choice != 11);
+    } while (choice != 13);
 
     return 0;
 }

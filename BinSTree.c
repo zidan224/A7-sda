@@ -82,15 +82,50 @@ void PostOrder(BinTree P) {
     }
 }
 
-void PrintTree(BinTree P, int h) {
+void PrintTree(BinTree P, int level) {
     int i;
     if (P != Nil) {
-        for (i = 0; i < h; i++) printf(" ");
-        printf("%d\n", Info(P));
-        PrintTree(Left(P), h + 2);
-        PrintTree(Right(P), h + 2);
+        // Cetak info node
+        for (i = 0; i < level * 2; i++) {
+            printf(" ");
+        }
+        printf("Info  = %d\n", Info(P));
+
+        // Cetak info anak kiri
+        for (i = 0; i < level * 2; i++) {
+            printf(" ");
+        }
+        printf("Left  = ");
+        if (Left(P) != Nil) {
+            printf("%d\n", Info(Left(P)));
+        } else {
+            printf("Nil\n");
+        }
+
+        // Cetak info anak kanan
+        for (i = 0; i < level * 2; i++) {
+            printf(" ");
+        }
+        printf("Right = ");
+        if (Right(P) != Nil) {
+            printf("%d\n", Info(Right(P)));
+        } else {
+            printf("Nil\n");
+        }
+
+        // Cetak level
+        for (i = 0; i < level * 2; i++) {
+            printf(" ");
+        }
+        printf("Level = %d\n\n", level);
+
+        // Rekursi ke kiri dan kanan
+        PrintTree(Left(P), level + 1);
+        PrintTree(Right(P), level + 1);
     }
 }
+
+
 
 boolean Search(BinTree P, infotype X) {
     if (P == Nil) return false;
@@ -267,6 +302,34 @@ void InsSearch(BinTree *P, infotype X) {
     }
 }
 
-
+void InsertManual(BinTree *P, infotype parent, infotype newVal, boolean kiri, boolean gantiKalauAda) {
+    if (*P != Nil) {
+        if (Info(*P) == parent) {
+            if (kiri) {
+                if (Left(*P) == Nil || gantiKalauAda) {
+                    if (Left(*P) != Nil && gantiKalauAda) {
+                        free(Left(*P)); // Hapus node lama kalau menimpa
+                    }
+                    Left(*P) = Alokasi(newVal);
+                } else {
+                    printf("Left child sudah ada dan gantiKalauAda = false\n");
+                }
+            } else {
+                if (Right(*P) == Nil || gantiKalauAda) {
+                    if (Right(*P) != Nil && gantiKalauAda) {
+                        free(Right(*P)); // Hapus node lama kalau menimpa
+                    }
+                    Right(*P) = Alokasi(newVal);
+                } else {
+                    printf("Right child sudah ada dan gantiKalauAda = false\n");
+                }
+            }
+        } else {
+            // Cari ke kiri dan kanan
+            InsertManual(&Left(*P), parent, newVal, kiri, gantiKalauAda);
+            InsertManual(&Right(*P), parent, newVal, kiri, gantiKalauAda);
+        }
+    }
+}
 
 
